@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "gatsby";
+import { graphql, Link, PageProps } from "gatsby";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 
 interface ILayoutProps {
     children: any;

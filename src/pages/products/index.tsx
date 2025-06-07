@@ -4,7 +4,6 @@ import { graphql, HeadFC, Link, PageProps } from "gatsby";
 import Seo from "../components/Seo";
 
 export default function Products({data}: PageProps<Queries.ProductsQuery>) {
-    console.log(data);
     return(
         <Layout>
         <section className="grid">

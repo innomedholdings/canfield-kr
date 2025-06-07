@@ -28,16 +28,14 @@ const IndexPage: React.FC<PageProps> = ({data}:PageProps<Queries.ProductsQuery>)
           {data.allMdx.nodes.map((product, index)=>(
               <article key={index}>
                 <Link to={`/products/${product.frontmatter?.slug}`}>
-                <h3>{product.frontmatter?.name}</h3>
                 <GatsbyImage image={getImage(product.frontmatter?.smallImage?.childImageSharp?.gatsbyImageData!)} />
                 <hr />
-                <p>{product.excerpt}</p>
+                <p className="">{product.frontmatter?.titleTop}</p>
+                <span style={{color: "grey", fontSize:15}}>{product.frontmatter?.titleBottom}</span>
                 </Link>
               </article>
           ))}
       </section>
-
-       
    </Layout>
   )
 }
@@ -49,6 +47,8 @@ query Products {
       frontmatter {
         name
         slug
+        titleTop
+        titleBottom
         smallImage {
           childImageSharp {
             gatsbyImageData(height: 300, placeholder: BLURRED)
