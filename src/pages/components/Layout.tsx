@@ -1,6 +1,7 @@
 import React from "react";
 import { graphql, Link, PageProps } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
+import Footer from "./Footer";
 
 interface ILayoutProps {
     children: any;
@@ -16,6 +17,7 @@ export default function Layout({children}: ILayoutProps){
             </ul>
             </nav>
             <main>{children}</main>
+            <Footer />
         </div>        
     )
 }

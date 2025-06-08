@@ -3,7 +3,6 @@ import Layout from "../components/Layout";
 import { graphql, HeadFC } from "gatsby";
 import Seo from "../components/Seo";
 import Video from "../components/Video";
-import HeaderImage from "../components/HeaderImage";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 
 interface IProductProps {
@@ -12,22 +11,36 @@ interface IProductProps {
 }
 
 export default function Product({data, children}:IProductProps){
-  if(data.mdx?.frontmatter?.video) {
-    return(      <Layout>
-        <div>{children}</div>
-        <Video videoSrcURL={data.mdx?.frontmatter?.video} />
-        <p>캔필드</p>
-      </Layout>)
-  } else {
-    return (
-      <Layout>
-        <div>{children}</div>
-        <GatsbyImage image={getImage(data.mdx.frontmatter?.headerImage?.childImageSharp?.gatsbyImageData!)} />
-        <p>캔필드</p>
-      </Layout>
-    )
-  }
+  const isheaderImage = data.mdx?.frontmatter?.headerImage;
+  const isVideo = data.mdx?.frontmatter?.video;
+  let renderContent;
 
+  if(isheaderImage && isVideo) {
+    renderContent = (<div>
+      <div className="grid" style = {{backgroundColor:"#040720"}}>
+        <GatsbyImage image={getImage(data.mdx.frontmatter?.headerImage?.childImageSharp?.gatsbyImageData!)} alt="header"/>
+        <div style={{margin:"10px"}}>
+            <h3 style={{color: "#ECFAE5"}}>의료용 촬영 장비 캔필드</h3>
+            <p style={{color: "#ECFAE5"}}>The worldwide leader in specialized photographic systems and imaging software.</p>
+            <p style={{color: "white"}}>Canfield has a legacy of firsts. Over the years, we have been at the frontier of 3D imaging and simulation, 2D image capture improvement, facial skin analysis, and created opportunities to continually push the envelope for what is possible.</p>
+        </div>
+      </div>
+              <hr />
+      <Video videoSrcURL={data.mdx?.frontmatter?.video} /> 
+    </div>)
+  } else if(isVideo) {
+    renderContent = <Video videoSrcURL={data.mdx?.frontmatter?.video} />
+  } else if(isheaderImage) {
+    renderContent = <GatsbyImage image={getImage(data.mdx?.frontmatter?.headerImage?.childImageSharp?.gatsbyImageData!)} alt="header" />
+  } else {
+    renderContent = <div>no data</div>
+  }
+  console.log(renderContent);
+
+  return(<Layout>
+        <div>{children}</div>
+        {renderContent}
+      </Layout>) 
 }
 
 export const query = graphql`

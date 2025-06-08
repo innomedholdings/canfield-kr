@@ -6,9 +6,11 @@ interface IVideoProps {
 export default function Video({videoSrcURL}: IVideoProps){
     if(videoSrcURL) {
         return (
-            <video autoplay="" loop="" muted="" playsinline="" width="100%" title="A video">
+            <div>            <span>Video</span>
+            <video autoPlay={true} loop={true} width="100%" title="A video">
                 <source src={videoSrcURL} type="video/mp4" />
-            </video>
+            </video></div>
+
         )
     }
 }
